@@ -1,0 +1,35 @@
+-- Full Bright Script
+local Lighting = game:GetService("Lighting")
+
+-- Function to enable full bright
+local function enableFullBright()
+    Lighting.Ambient = Color3.new(1, 1, 1) -- Full white
+    Lighting.Brightness = 2 -- Higher brightness
+    Lighting.ClockTime = 12 -- Noon for maximum light
+    Lighting.FogEnd = 1e6 -- Remove fog
+    Lighting.OutdoorAmbient = Color3.new(1, 1, 1) -- Outdoor lighting brightness
+end
+
+-- Run the full bright function
+enableFullBright()
+
+-- Optional: Restore default settings
+local function restoreLighting()
+    Lighting:ClearAllChildren()
+    Lighting:Reset()
+end
+
+-- Example of keybinding to toggle the script
+local UserInputService = game:GetService("UserInputService")
+local toggle = false
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.F then
+        toggle = not toggle
+        if toggle then
+            enableFullBright()
+        else
+            restoreLighting()
+        end
+    end
+end)
